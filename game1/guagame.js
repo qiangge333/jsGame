@@ -1,4 +1,4 @@
-var GuaGame = function(images) {
+var GuaGame = function(images, runCallback) {
     // images是一个对象， 里面包含引用名和图片路径
     var canvas = document.querySelector('#id-canvas')
     var context = canvas.getContext('2d')
@@ -78,8 +78,9 @@ var GuaGame = function(images) {
         }
         return image
     }
-    
+
     o.run = function() {
+        runCallback(o)
         //开始运行程序
         setTimeout(function() {
             runloop()

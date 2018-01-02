@@ -1,6 +1,6 @@
 blocks = []
 
-var enableDebugMode = function(enable) {
+var enableDebugMode = function(game, enable) {
     if (!enable) {
         return
     }
@@ -15,7 +15,7 @@ var enableDebugMode = function(enable) {
             window.paused = !window.paused
         }
         if ('1234567'.includes(k)) {
-            blocks = loadLevers(k)
+            blocks = loadLevers(game, k)
         }
     })
     // 控制速度
@@ -26,65 +26,69 @@ var enableDebugMode = function(enable) {
 }
 
 var __mian = function() {
-    //debug模式
-    var enable = true
-    enableDebugMode(enable)
+    var images = {
+        paddle: 'paddle.png',
+        ball: 'ball.png',
+        block: 'block.png',
+    }
+    var game = GuaGame(images, function(game) {
+        //debug模式
+        var enable = true
+        enableDebugMode(game, enable)
+        var paddle = Paddle(game)
+        var ball = Ball(game)
 
-    var game = GuaGame()
+        blocks = loadLevers(game, 1)
 
-    var paddle = Paddle()
-    var ball = Ball()
+        var score = 0
 
-    blocks = loadLevers(1)
+        //注册事件
+        game.registerAction('a', function() {
+            paddle.moveLeft()
+        })
+        game.registerAction('d', function() {
+            paddle.moveRigth()
+        })
+        game.registerAction('f', function() {
+            ball.fire()
+        })
 
-    var score = 0
-
-    //注册事件
-    game.registerAction('a', function() {
-        paddle.moveLeft()
-    })
-    game.registerAction('d', function() {
-        paddle.moveRigth()
-    })
-    game.registerAction('f', function() {
-        ball.fire()
-    })
-
-    game.update = function() {
-        if (window.paused) {
-            log('暂停')
-            return
-        }
-        ball.move()
-        if (paddle.collide(ball)) {
-            ball.speedy *= -1
-        }
-        for (var i = 0; i < blocks.length; i++) {
-            var b = blocks[i]
-            if (b.alive) {
-                if (b.collide(ball)) {
-                    log('block and ball 相撞')
-                    ball.rebound()
-                    b.kill()
-                    score += 100
+        game.update = function() {
+            if (window.paused) {
+                log('暂停')
+                return
+            }
+            ball.move()
+            if (paddle.collide(ball)) {
+                ball.speedy *= -1
+            }
+            for (var i = 0; i < blocks.length; i++) {
+                var b = blocks[i]
+                if (b.alive) {
+                    if (b.collide(ball)) {
+                        log('block and ball 相撞')
+                        ball.rebound()
+                        b.kill()
+                        score += 100
+                    }
                 }
             }
         }
-    }
 
-    game.draw = function() {
-        game.drawImage(paddle)
-        game.drawImage(ball)
-        // drwa block
-        for (var i = 0; i < blocks.length; i++) {
-            var b = blocks[i]
-            if (b.alive) {
-                game.drawImage(b)
+        game.draw = function() {
+            game.drawImage(paddle)
+            game.drawImage(ball)
+            // drwa block
+            for (var i = 0; i < blocks.length; i++) {
+                var b = blocks[i]
+                if (b.alive) {
+                    game.drawImage(b)
+                }
             }
+            // draw text
+            game.context.fillText("分数: " + score, 10, 290);
         }
-        // draw text
-        game.context.fillText("分数: " + score, 10, 290);
-    }
+    })
 }
 
 __mian()

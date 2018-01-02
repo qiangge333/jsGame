@@ -21,13 +21,14 @@ var rectIntersects = function(a, b) {
     return false
 }
 
-var loadLevers = function(n) {
+var loadLevers = function(game, n) {
     var blocks = []
     n = n -1
     level = levels[n]
+    log('level is ', level)
     for (var i = 0; i < level.length; i++) {
         var p = level[i]
-        blocks.push(Block(p))
+        blocks.push(Block(game, p))
     }
     return blocks
 }
