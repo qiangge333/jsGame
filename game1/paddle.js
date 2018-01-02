@@ -24,13 +24,9 @@ var Paddle = function(game) {
         o.move(o.x += o.speed)
     }
     o.collide = function(ball) {
-        if (ball.y + ball.img.height > o.y) {
-            if (ball.x > o.x && ball.x < o.x + o.img.width) {
-                // log('相撞')
-                return true
-            }
-        }
-        return false
+        var a = o
+        var b = ball
+        return rectIntersects(a, b)
     }
     return o
 }

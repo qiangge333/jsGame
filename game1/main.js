@@ -75,7 +75,35 @@ var __mian = function() {
             }
         }
 
+        // 鼠标移动事件
+        var enableDraw = false
+        game.canvas.addEventListener('mousedown', function(event) {
+            var x = event.offsetX
+            var y = event.offsetY
+            log(x, y, event)
+            if (ball.hasPoint(x, y)) {
+                log('鼠标移动事件', x, y, event)
+                enableDraw = true
+            }
+        })
+        game.canvas.addEventListener('mousemove', function(event) {
+            var x = event.offsetX
+            var y = event.offsetY
+            if (enableDraw) {
+                ball.x = x
+                ball.y = y
+            }
+        })
+        game.canvas.addEventListener('mouseup', function(event) {
+            var x = event.offsetX
+            var y = event.offsetY
+            enableDraw = false
+        })
         game.draw = function() {
+            // draw 背景
+            game.context.fillStyle = "#554"
+            game.context.fillRect(0, 0, 400, 300)
+            // draw图片
             game.drawImage(paddle)
             game.drawImage(ball)
             // drwa block
