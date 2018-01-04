@@ -3,12 +3,22 @@ var GuaGame = function(images, runCallback) {
     var canvas = document.querySelector('#id-canvas')
     var context = canvas.getContext('2d')
     var o = {
+        scene: null,
         canvas: canvas,
         context: context,
         keydowns: {},
         actions: {},
         images: {},
     }
+    // draw
+    o.draw = function() {
+        o.scene.draw()
+    }
+    // update
+    o.update = function() {
+        o.scene.update()
+    }
+
     o.drawImage = function(img) {
         context.drawImage(img.img, img.x, img.y)
     }
@@ -79,12 +89,18 @@ var GuaGame = function(images, runCallback) {
         return image
     }
 
-    o.run = function() {
-        runCallback(o)
+    o.runWithScene = function(scene) {
+        o.scene = scene
         //开始运行程序
         setTimeout(function() {
             runloop()
         }, 1000/window.fps)
+    }
+    o.replaceScene = function(scene) {
+        o.scene = scene
+    }
+    o.run = function() {
+        runCallback(o)
     }
 
     return o
