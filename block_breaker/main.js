@@ -27,12 +27,12 @@ var enableDebugMode = function(game, enable) {
 
 var __mian = function() {
     var images = {
-        paddle: 'paddle.png',
-        ball: 'ball.png',
-        block: 'block.png',
+        paddle: 'img/paddle.png',
+        ball: 'img/ball.png',
+        block: 'img/block.png',
     }
-    var game = GuaGame(images, function(g) {
-        var s = scene(g)
+    var game = GuaGame.instance(30, images, function(g) {
+        var s = SceneTitle.new(g)
         g.runWithScene(s)
     })
 

@@ -1,4 +1,4 @@
-var scene = function(game) {
+var Scene = function(game) {
     var s = {
         game: game,
     }
@@ -42,8 +42,8 @@ var scene = function(game) {
             return
         }
         ball.move()
-        if (ball.y > paddle.y) {
-            var s = sceneEnd(game)
+        if (ball.y > 300) {
+            var s = SceneEnd.new(game)
             game.replaceScene(s)
         }
         if (paddle.collide(ball)) {
