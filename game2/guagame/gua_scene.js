@@ -9,6 +9,7 @@ class GuaScene {
     }
     addElement(img) {
         this.elements.push(img)
+        img.scene = this
     }
     draw() {
         for (var i = 0; i < this.elements.length; i++) {
@@ -17,6 +18,9 @@ class GuaScene {
         }
     }
     update() {
-
+        for (var i = 0; i < this.elements.length; i++) {
+            var e = this.elements[i]
+            e.update()
+        }
     }
 }

@@ -32,6 +32,7 @@ var __mian = function() {
         bullet: 'img/bullet.png',
         player: 'img/player.png',
         enemy0: 'img/enemy0.png',
+        enemy1: 'img/enemy1.png',
     }
     var game = GuaGame.instance(30, images, function(g) {
         var s = Scene.new(g)
