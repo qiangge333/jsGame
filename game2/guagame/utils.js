@@ -1,5 +1,21 @@
 var e = sel => document.querySelector(sel)
 
+var es = sel => document.querySelectorAll(sel)
+
+var bindEvent = function(element, eventName, callback) {
+    element.addEventListener(eventName, function(event) {
+        callback(event)
+    })
+}
+
+var bindAll = function(selector, eventName, callback) {
+    var elements = es(selector)
+    for(var i = 0; i < elements.length; i++) {
+        var e = elements[i]
+        bindEvent(e, eventName, callback)
+    }
+}
+
 var log = console.log.bind(console)
 // var log = function(s) {
 //     e('#id-text-log').value += '\n' + s

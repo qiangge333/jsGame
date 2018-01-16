@@ -1,3 +1,10 @@
+const config = {
+    player_speed: 10,
+    bullet_speed: 2,
+    enemy_speed: randomBetween(3, 5),
+    cloud_speed: 2,
+}
+
 class Bullet extends GuaImage {
     constructor(game) {
         super(game, 'bullet')
@@ -8,6 +15,9 @@ class Bullet extends GuaImage {
     }
     update() {
         this.y -= this.speed
+    }
+    debug() {
+        this.speed = config.bullet_speed
     }
 }
 
@@ -25,9 +35,12 @@ class Player extends GuaImage {
             this.cooldown--
         }
     }
+    debug() {
+        this.speed = config.player_speed
+    }
     fire() {
         if (this.cooldown == 0) {
-            this.cooldown = 5
+            this.cooldown = 9
             var b = Bullet.new(this.game)
             var x = this.x + this.w/2
             var y = this.y
@@ -58,6 +71,7 @@ class Enemy extends GuaImage {
         this.setup()
     }
     setup() {
+
         this.speed = randomBetween(3, 5)
         this.x = randomBetween(20, 350)
         this.y = -randomBetween(0, 200)
@@ -67,6 +81,9 @@ class Enemy extends GuaImage {
         if (this.y > 700) {
             this.setup()
         }
+    }
+    debug() {
+        this.speed = config.enemy_speed
     }
 }
 
@@ -85,6 +102,9 @@ class Cloud extends GuaImage {
         if (this.y > 700) {
             this.setup()
         }
+    }
+    debug() {
+        this.speed = config.cloud_speed
     }
 }
 

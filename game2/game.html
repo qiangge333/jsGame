@@ -27,6 +27,42 @@
         <!-- <div class="">
             <textarea id="id-text-log" rows="20" cols="50"></textarea>
         </div> -->
+        <div class="">
+            <label>
+                <input class="auto-slider" type="range"  value="" data-value="config.player_speed">
+                玩家速度：<span class="speed-span"></span>
+            </label>
+        </div>
+        <div class="">
+            <label>
+                <input class="auto-slider" type="range"  value="" data-value="config.bullet_speed">
+                子弹速度：<span class="speed-span"></span>
+            </label>
+        </div>
+        <div class="">
+            <label>
+                <input class="auto-slider" type="range"  value="" data-value="config.cloud_speed">
+                云速度：<span class="speed-span"></span>
+            </label>
+        </div>
+        <div class="">
+            <label>
+                <input class="auto-slider" type="range"  value="" data-value="config.enemy_speed">
+                敌机速度：<span class="speed-span"></span>
+            </label>
+        </div>
+        <script>
+            bindAll('.auto-slider', 'input', function(event) {
+                var target = event.target
+                var debugSpeed = target.dataset.value
+                var v = target.value
+                eval(debugSpeed + '=' + v)
+                log('config.player_speed = ', config.player_speed)
+                var label = target.closest('label')
+                var speedSpan = label.querySelector('.speed-span')
+                speedSpan.innerText = v
+            })
+        </script>
         <script src='main.js'></script>
     </body>
 </html>
